@@ -99,7 +99,9 @@ const serverListManager = new class ServerListManager {
     }
 
     loadServerList(): void {
-        if(!fs.existsSync('./data/servers')) fs.mkdirSync('./data/servers')
+        if (!fs.existsSync('./data')) fs.mkdirSync('./data');
+        if (!fs.existsSync('./data/servers')) fs.mkdirSync('./data/servers');
+
         fs.readdirSync('./data/servers').forEach(file => {
             const server = JSON.parse(fs.readFileSync(`./data/servers/${file}`, 'utf-8'))
             

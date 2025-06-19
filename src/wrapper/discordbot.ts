@@ -6,6 +6,14 @@ import { Whitelister } from '../whitelister.js';
 
 dotenv.config();
 
+if (!process.env.DISCORD_BOT_TOKEN || !process.env.DISCORD_APPLICATION_ID) {
+    console.error('Missing DISCORD_BOT_TOKEN or DISCORD_APPLICATION_ID in .env file');
+    process.exit(1);
+}
+
+if (!fs.existsSync('./data')) fs.mkdirSync('./data');
+if (!fs.existsSync('./data/discordAccounts.json')) fs.writeFileSync('./data/discordAccounts.json', '{}');
+
 const discordMinecraftLinks: { [discordId: string]: string } = JSON.parse(fs.readFileSync('./data/discordAccounts.json', 'utf8'));
 
 const client = new Client({
